@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>頂峰安全顧問有限公司 | Apex Guardian Advisory</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Georgia', serif; font-size: 15px; line-height: 1.7; }
+img { display: block; width: 100%; }
+a { text-decoration: none; }
+
+/* ── Version Toggle Bar ── */
+.version-bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 9px 20px; background: rgba(8,8,8,0.94); backdrop-filter: blur(8px);
+}
+.version-bar span { font-family: Arial, sans-serif; font-size: 11px; letter-spacing: 0.1em; color: #666; margin-right: 4px; }
+.v-btn {
+  font-family: Arial, sans-serif; font-size: 11px; letter-spacing: 0.08em;
+  padding: 5px 18px; border-radius: 99px; border: 1px solid #3a3a3a;
+  background: transparent; color: #888; cursor: pointer; transition: all 0.2s;
+}
+.v-btn.active { background: #f5f0e8; color: #111; border-color: #f5f0e8; }
+
+.page { display: none; padding-top: 44px; }
+.page.active { display: block; }
+.container { max-width: 1160px; margin: 0 auto; padding: 0 48px; }
+
+/* ════════════════════════════
+   VERSION A — 暖米白
+════════════════════════════ */
+.va {
+  --bg: #F4F1EB; --sf: #EAE6DE; --sf2: #DEDAD2;
+  --blk: #141414; --mut: #6A6660; --fnt: #A8A49C;
+  --acc: #C8A84A; --acl: #DBBE62; --bdr: #D8D4CC; --wht: #FAFAF8;
+}
+.va body-bg { background: var(--bg); }
+
+.va .nav {
+  background: var(--bg); border-bottom: 0.5px solid var(--bdr);
+  height: 66px; padding: 0 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 44px; z-index: 100;
+}
+.va .logo { font-family: Arial, sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.05em; color: var(--blk); }
+.va .logo small { display: block; font-size: 9px; font-weight: 400; letter-spacing: 0.16em; color: var(--fnt); margin-top: 2px; }
+.va .nav-r { display: flex; align-items: center; gap: 28px; }
+.va .nav-links { display: flex; gap: 22px; list-style: none; }
+.va .nav-links a { font-family: Arial, sans-serif; font-size: 11px; letter-spacing: 0.06em; color: var(--mut); }
+.va .nav-links a:hover { color: var(--blk); }
+.va .lang { display: flex; gap: 5px; padding-left: 16px; border-left: 0.5px solid var(--bdr); margin-left: 4px; }
+.va .lp { font-family: Arial, sans-serif; font-size: 10px; letter-spacing: 0.1em; padding: 3px 10px; border-radius: 99px; border: 1px solid var(--bdr); cursor: pointer; color: var(--mut); background: transparent; }
+.va .lp.on { background: var(--blk); color: var(--wht); border-color: var(--blk); }
+
+.va .hero { position: relative; height: 90vh; min-height: 580px; overflow: hidden; display: flex; align-items: flex-end; background: #111; }
+.va .hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.va .hero-ov { position: absolute; inset: 0; background: linear-gradient(to right, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.58) 48%, rgba(10,10,10,0.06) 100%); }
+.va .hero-body { position: relative; z-index: 2; padding: 0 64px 70px; max-width: 640px; }
+.va .h-eye { font-family: Arial, sans-serif; font-size: 9.5px; letter-spacing: 0.28em; color: var(--acl); margin-bottom: 16px; }
+.va .h-title { font-size: 46px; font-weight: 700; line-height: 1.13; color: #F5F2EC; margin-bottom: 18px; }
+.va .h-text { font-family: Arial, sans-serif; font-size: 13px; line-height: 1.95; color: rgba(245,242,236,0.62); margin-bottom: 28px; }
+.va .h-btns { display: flex; gap: 12px; }
+.va .btn-p { font-family: Arial, sans-serif; font-size: 11px; letter-spacing: 0.1em; padding: 11px 24px; background: var(--acc); color: #0c0c0c; border: none; cursor: pointer; }
+.va .btn-o { font-family: Arial, sans-serif; font-size: 11px; letter-spacing: 0.1em; padding: 10px 24px; background: transparent; color: #F5F2EC; border: 1px solid rgba(245,242,236,0.38); cursor: pointer; }
+
+.va .sec { padding: 80px 0; background: var(--bg); }
+.va .sec.alt { background: var(--sf); }
+.va .sec-eye { font-family: Arial, sans-serif; font-size: 9px; letter-spacing: 0.26em; color: var(--acc); margin-bottom: 10px; }
+.va .sec-h { font-size: 28px; font-weight: 700; color: var(--blk); line-height: 1.2; margin-bottom: 8px; }
+.va .sec-sub { font-family: Arial, sans-serif; font-size: 13px; color: var(--mut); max-width: 500px; }
+
+.va .pgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--bdr); margin-top: 44px; border-radius: 10px; overflow: hidden; }
+.va .pcard { background: var(--sf); padding: 34px 30px; position: relative; overflow: hidden; }
+.va .pcard::before { content: ''; position: absolute; inset: 0; background: var(--sf2); opacity: 0.55; }
+.va .pin { position: relative; z-index: 1; }
+.va .pn { font-family: Arial, sans-serif; font-size: 9px; letter-spacing: 0.2em; color: var(--acc); margin-bottom: 10px; }
+.va .pt { font-size: 15px; font-weight: 700; color: var(--blk); margin-bottom: 3px; }
+.va .pen { font-family: Arial, sans-serif; font-size: 10px; letter-spacing: 0.11em; color: var(--fnt); margin-bottom: 10px; }
+.va .ptag { font-size: 13px; font-style: italic; color: var(--blk); border-left: 2px solid var(--acc); padding-left: 12px; margin-bottom: 10px; }
+.va .pbody { font-family: Arial, sans-serif; font-size: 12px; color: var(--mut); line-height: 1.85; }
+
+.va .stats { display: grid; grid-template-columns: 1fr 1fr; margin-top: 44px; border-radius: 10px; overflow: hidden; min-height: 230px; }
+.va .svis { background: linear-gradient(140deg, #141414 0%, #2a2520 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 34px; }
+.va .svis-line { width: 36px; height: 2px; background: var(--acc); margin-bottom: 14px; }
+.va .svis-txt { font-family: Arial, sans-serif; font-size: 13px; color: rgba(245,240,220,0.45); line-height: 1.85; }
+.va .scards { display: grid; grid-template-columns: 1fr 1fr; background: var(--sf); }
+.va .sc { padding: 32px 26px; border-bottom: 0.5px solid var(--bdr); border-left: 0.5px solid var(--bdr); }
+.va .sc:nth-child(odd) { border-left: none; }
+.va .snum { font-size: 36px; font-weight: 700; color: var(--blk); line-height: 1; margin-bottom: 7px; }
+.va .snum span { color: var(--acc); }
+.va .slbl { font-family: Arial, sans-serif; font-size: 10.5px; letter-spacing: 0.1em; color: var(--fnt); }
+
+.va .svgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 44px; }
+.va .svcard { background: var(--sf); border: 0.5px solid var(--bdr); overflow: hidden; }
+.va .svthumb { height: 118px; background: var(--sf2); display: flex; align-items: center; justify-content: center; }
+.va .svthumb-in { width: 78%; height: 68%; background: var(--bdr); border-radius: 2px; }
+.va .svbody { padding: 16px 18px; }
+.va .svn { font-family: Arial, sans-serif; font-size: 9px; letter-spacing: 0.16em; color: var(--acc); margin-bottom: 6px; }
+.va .svt { font-size: 14px; font-weight: 700; color: var(--blk); margin-bottom: 5px; }
+.va .svd { font-family: Arial, sans-serif; font-size: 11.5px; color: var(--mut); line-height: 1.7; }
+.va .svl { font-family: Arial, sans-serif; font-size: 10px; letter-spacing: 0.09em; color: var(--acc); display: inline-block; margin-top: 9px; border-bottom: 1px solid var(--acc); padding-bottom: 1px; }
+
+.va .rwnav { display: flex; gap: 8px; margin-bottom: 18px; }
+.va .rarr { width: 36px; height: 36px; border: 1px solid var(--bdr); background: transparent; cursor: pointer; font-size: 15px; color: var(--mut); display: flex; align-items: center; justify-content: center; }
+.va .rgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 44px; }
+.va .rcard { background: var(--sf); border: 0.5px solid var(--bdr); padding: 26px 22px; }
+.va .rstar { color: var(--acc); font-size: 12px; letter-spacing: 2px; margin-bottom: 13px; }
+.va .rtxt { font-size: 13px; color: var(--mut); line-height: 1.9; font-style: italic; margin-bottom: 16px; }
+.va .rdiv { width: 22px; height: 1px; background: var(--acc); margin-bottom: 13px; }
+.va .rauth { font-family: Arial, sans-serif; font-size: 11px; color: var(--blk); font-weight: 700; }
+.va .rrole { font-family: Arial, sans-serif; font-size: 10.5px; color: var(--fnt); margin-top: 2px; }
+
+.va .ctwrap { display: grid; grid-template-columns: 3fr 2fr; gap: 48px; margin-top: 44px; }
+.va .fg { margin-bottom: 15px; }
+.va .fl { font-family: Arial, sans-serif; font-size: 10px; letter-spacing: 0.12em; color: var(--fnt); margin-bottom: 5px; display: block; }
+.va .fi { width: 100%; padding: 10px 13px; background: var(--sf); border: 1px solid #edeff1; font-family: Arial, sans-serif; font-size: 13px; color: var(--blk); outline: none; }
+.va .fi:focus { border-color: var(--acc); }
+.va .fbtn { font-family: Arial, sans-serif; font-size: 11px; letter-spacing: 0.12em; padding: 12px 26px; background: var(--blk); color: var(--wht); border: none; cursor: pointer; margin-top: 6px; }
+.va .cinfo-lbl { font-family: Arial, sans-serif; font-size: 9px; letter-spacing: 0.22em; color: var(--acc); margin-bottom: 22px; }
+.va .citem { margin-bottom: 22px; }
+.va .citem-l { font-family: Arial, sans-serif; font-size: 10px; letter-spacing: 0.1em; color: var(--fnt); margin-bottom: 4px; }
+.va .citem-v { font-family: Arial, sans-serif; font-size: 14px; color: var(--blk); font-weight: 700; }
+
+.va .footer { background: var(--blk); padding: 26px 48px; display: flex; align-items: center; justify-content: space-between; }
+.va .fl-logo { font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; color: var(--wht); }
+.va .fl-copy { font-family: Arial, sans-serif; font-size: 10px; color: #555; }
+
+.va .fab { position: fixed; bottom: 30px; right: 30px; z-index: 300; width: 50px; height: 50px; border-radius: 50%; background: var(--acc); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.va .fab svg { width: 21px; height: 21px; fill: #0c0c0c; }
+
+
+/* ════════════════════════════
+   VERSION B — 深黑 × 金
+════════════════════════════ */
+.vb {
+  --bg: #090909; --sf: #111111; --sf2: #191919;
+  --txt: #EAE6DC; --mut: #686460; --fnt: #3C3830;
+  --acc: #C4A84A; --acl: #D4BA60; --bdr: #1E1E1E; --blk: #090909;
+}
+
+.vb .nav {
+  background: var(--bg); border-bottom: 0.5px solid var(--bdr);
+  height: 66px; padding: 0 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 44px; z-index: 100;
+}
+.vb .logo { font-family: Arial, sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.05em; color: var(--txt); }
+.vb .logo small { display: block; font-size: 9px; font-weight: 400; letter-spacing: 0.16em; color: var(--mut); margin-top: 2px; }
+.vb .nav-r { display: flex; align-items: center; gap: 28px; }
+.vb .nav-links { display: flex; gap: 22px; list-style: none; }
+.vb .nav-links a { font-family: Arial, sans-serif; font-size: 11px; letter-spacing: 0.06em; color: var(--mut); }
+.vb .nav-links a:hover { color: var(--txt); }
+.vb .lang { display: flex; gap: 5px; padding-left: 16px; border-left: 0.5px solid var(--bdr); margin-left: 4px; }
+.vb .lp { font-family: Arial, sans-serif; font-size: 10px; letter-spacing: 0.1em; padding: 3px 10px; border-radius: 99px; border: 1px solid var(--bdr); cursor: pointer; color: var(--mut); background: transparent; }
+.vb .lp.on { background: var(--acc); color: #0a0a0a; border-color: var(--acc); }
+
+.vb .hero { position: relative; height: 90vh; min-height: 580px; overflow: hidden; display: flex; align-items: flex-end; background: #050505; }
+.vb .hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: brightness(0.52); }
+.vb .hero-ov { position: absolute; inset: 0; background: linear-gradient(to right, rgba(5,5,5,0.94) 0%, rgba(5,5,5,0.65) 48%, rgba(5,5,5,0.12) 100%); }
+.vb .hero-body { position: relative; z-index: 2; padding: 0 64px 70px; max-width: 640px; }
+.vb .h-eye { font-family: Arial, sans-serif; font-size: 9.5px; letter-spacing: 0.28em; color: var(--acl); margin-bottom: 16px; }
+.vb .h-title { font-size: 46px; font-weight: 700; line-height: 1.13; color: var(--txt); margin-bottom: 18px; }
+.vb .h-text { font-family: Arial, sans-serif; font-size: 13px; line-height: 1.95; color: rgba(234,230,220,0.52); margin-bottom: 28px; }
+.vb .h-btns { display: flex; gap: 12px; }
+.vb .btn-p { font-family: Arial, sans-serif; font-size: 11px; letter-spacing: 0.1em; padding: 11px 24px; background: var(--acc); color: #0a0a0a; border: none; cursor: pointer; font-weight: 700; }
+.vb .btn-o { font-family: Arial, sans-serif; font-size: 11px; letter-spacing: 0.1em; padding: 10px 24px; background: transparent; color: var(--txt); border: 1px solid rgba(234,230,220,0.3); cursor: pointer; }
+
+.vb .sec { padding: 80px 0; background: var(--bg); }
+.vb .sec.alt { background: var(--sf); }
+.vb .sec-eye { font-family: Arial, sans-serif; font-size: 9px; letter-spacing: 0.26em; color: var(--acc); margin-bottom: 10px; }
+.vb .sec-h { font-size: 28px; font-weight: 700; color: var(--txt); line-height: 1.2; margin-bottom: 8px; }
+.vb .sec-sub { font-family: Arial, sans-serif; font-size: 13px; color: var(--mut); max-width: 500px; }
+
+.vb .pgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 44px; }
+.vb .pcard { background: transparent; border: 1px solid rgba(255,255,255,0.18); border-radius: 4px; padding: 34px 30px; position: relative; overflow: hidden; }
+.vb .pcard::before { content: none; }
+.vb .pin { position: relative; z-index: 1; }
+.vb .pn { font-family: Arial, sans-serif; font-size: 9px; letter-spacing: 0.2em; color: var(--acc); margin-bottom: 10px; }
+.vb .pt { font-size: 15px; font-weight: 700; color: var(--txt); margin-bottom: 3px; }
+.vb .pen { font-family: Arial, sans-serif; font-size: 10px; letter-spacing: 0.11em; color: var(--mut); margin-bottom: 10px; }
+.vb .ptag { font-size: 13px; font-style: italic; color: var(--txt); border-left: 2px solid var(--acc); padding-left: 12px; margin-bottom: 10px; opacity: 0.85; }
+.vb .pbody { font-family: Arial, sans-serif; font-size: 12px; color: var(--mut); line-height: 1.85; }
+
+.vb .stats { display: grid; grid-template-columns: 1fr 1fr; margin-top: 44px; border-radius: 10px; overflow: hidden; min-height: 230px; border: 0.5px solid var(--bdr); }
+.vb .svis { background: linear-gradient(140deg, #0c0a06 0%, #161208 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 34px; }
+.vb .svis-line { width: 36px; height: 2px; background: var(--acc); margin-bottom: 14px; }
+.vb .svis-txt { font-family: Arial, sans-serif; font-size: 13px; color: rgba(196,168,74,0.4); line-height: 1.85; }
+.vb .scards { display: grid; grid-template-columns: 1fr 1fr; background: var(--sf); }
+.vb .sc { padding: 32px 26px; border-bottom: 0.5px solid rgba(255,255,255,0.08); border-left: 0.5px solid rgba(255,255,255,0.08); }
+.vb .sc:nth-child(odd) { border-left: none; }
+.vb .snum { font-size: 36px; font-weight: 700; color: var(--txt); line-height: 1; margin-bottom: 7px; }
+.vb .snum span { color: var(--acc); }
+.vb .slbl { font-family: Arial, sans-serif; font-size: 10.5px; letter-spacing: 0.1em; color: var(--mut); }
+
+.vb .svgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 44px; }
+.vb .svcard { background: transparent; border: 1px solid rgba(255,255,255,0.18); border-radius: 4px; overflow: hidden; }
+.vb .svthumb { height: 118px; background: rgba(255,255,255,0.04); display: flex; align-items: center; justify-content: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.vb .svthumb-in { width: 78%; height: 68%; background: rgba(255,255,255,0.08); border-radius: 2px; }
+.vb .svbody { padding: 16px 18px; }
+.vb .svn { font-family: Arial, sans-serif; font-size: 9px; letter-spacing: 0.16em; color: var(--acc); margin-bottom: 6px; }
+.vb .svt { font-size: 14px; font-weight: 700; color: var(--txt); margin-bottom: 5px; }
+.vb .svd { font-family: Arial, sans-serif; font-size: 11.5px; color: var(--mut); line-height: 1.7; }
+.vb .svl { font-family: Arial, sans-serif; font-size: 10px; letter-spacing: 0.09em; color: var(--acc); display: inline-block; margin-top: 9px; border-bottom: 1px solid var(--acc); padding-bottom: 1px; }
+
+.vb .rwnav { display: flex; gap: 8px; margin-bottom: 18px; }
+.vb .rarr { width: 36px; height: 36px; border: 1px solid var(--bdr); background: transparent; cursor: pointer; font-size: 15px; color: var(--mut); display: flex; align-items: center; justify-content: center; }
+.vb .rgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 44px; }
+.vb .rcard { background: transparent; border: 1px solid rgba(255,255,255,0.18); border-radius: 4px; padding: 26px 22px; }
+.vb .rstar { color: var(--acc); font-size: 12px; letter-spacing: 2px; margin-bottom: 13px; }
+.vb .rtxt { font-size: 13px; color: var(--mut); line-height: 1.9; font-style: italic; margin-bottom: 16px; }
+.vb .rdiv { width: 22px; height: 1px; background: var(--acc); margin-bottom: 13px; }
+.vb .rauth { font-family: Arial, sans-serif; font-size: 11px; color: var(--txt); font-weight: 700; }
+.vb .rrole { font-family: Arial, sans-serif; font-size: 10.5px; color: var(--mut); margin-top: 2px; }
+
+.vb .ctwrap { display: grid; grid-template-columns: 3fr 2fr; gap: 48px; margin-top: 44px; }
+.vb .fg { margin-bottom: 15px; }
+.vb .fl { font-family: Arial, sans-serif; font-size: 10px; letter-spacing: 0.12em; color: var(--mut); margin-bottom: 5px; display: block; }
+.vb .fi { width: 100%; padding: 10px 13px; background: var(--sf); border: 1px solid #edeff1; font-family: Arial, sans-serif; font-size: 13px; color: var(--txt); outline: none; }
+.vb .fi:focus { border-color: var(--acc); }
+.vb .fbtn { font-family: Arial, sans-serif; font-size: 11px; letter-spacing: 0.12em; padding: 12px 26px; background: var(--acc); color: #0a0a0a; border: none; cursor: pointer; font-weight: 700; margin-top: 6px; }
+.vb .cinfo-lbl { font-family: Arial, sans-serif; font-size: 9px; letter-spacing: 0.22em; color: var(--acc); margin-bottom: 22px; }
+.vb .citem { margin-bottom: 22px; }
+.vb .citem-l { font-family: Arial, sans-serif; font-size: 10px; letter-spacing: 0.1em; color: var(--mut); margin-bottom: 4px; }
+.vb .citem-v { font-family: Arial, sans-serif; font-size: 14px; color: var(--txt); font-weight: 700; }
+
+.vb .footer { background: #050505; border-top: 0.5px solid var(--bdr); padding: 26px 48px; display: flex; align-items: center; justify-content: space-between; }
+.vb .fl-logo { font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; color: var(--txt); }
+.vb .fl-copy { font-family: Arial, sans-serif; font-size: 10px; color: var(--mut); }
+
+.vb .fab { position: fixed; bottom: 30px; right: 30px; z-index: 300; width: 50px; height: 50px; border-radius: 50%; background: var(--acc); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.vb .fab svg { width: 21px; height: 21px; fill: #0a0a0a; }
+</style>
+</head>
+<body>
+
+<!-- Version Toggle -->
+<div class="version-bar">
+  <span>配色版本選擇</span>
+  <button class="v-btn active" data-v="a">版本 A — 暖米白</button>
+  <button class="v-btn" data-v="b">版本 B — 深黑 × 金</button>
+</div>
+
+<!-- ══════════ PAGE A ══════════ -->
+<div id="pa" class="page va active">
+
+  <nav class="nav">
+    <div class="logo">頂峰安全顧問有限公司<small>APEX GUARDIAN ADVISORY LTD.</small></div>
+    <div class="nav-r">
+      <ul class="nav-links">
+        <li><a href="#">關於我們</a></li>
+        <li><a href="#">服務項目</a></li>
+        <li><a href="#">成功案例</a></li>
+        <li><a href="#">如何委託</a></li>
+        <li><a href="#">聯絡我們</a></li>
+      </ul>
+      <div class="lang">
+        <button class="lp on">中</button>
+        <button class="lp">EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <img src="img/hero.png" alt="Apex Guardian">
+    <div class="hero-ov"></div>
+    <div class="hero-body">
+      <p class="h-eye">APEX GUARDIAN ADVISORY</p>
+      <h1 class="h-title">為卓越少數，<br>提供頂尖守護。</h1>
+      <p class="h-text">專業、忠誠、無懈可擊。我們致力於為頂尖人士提供超越期待的安全諮詢與私人保鏢服務。我們深信，真正的安全是讓您能心無旁鶩地專注於成就，而危險則交由我們在靜謐中預判並化解。</p>
+      <div class="h-btns">
+        <button class="btn-p">了解服務方案</button>
+        <button class="btn-o">立即諮詢</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec alt">
+    <div class="container">
+      <p class="sec-eye">— CORE COMMITMENT</p>
+      <h2 class="sec-h">核心承諾</h2>
+      <p class="sec-sub">四項不可妥協的專業準則，構成我們為您服務的根基。</p>
+      <div class="pgrid">
+        <div class="pcard"><div class="pin">
+          <p class="pn">01</p><h3 class="pt">隱於無形的絕對離散</h3>
+          <p class="pen">Absolute Discretion</p>
+          <p class="ptag">「影子般的守護，不干擾您的生活節奏。」</p>
+          <p class="pbody">我們深諳高資產人士對隱私的需求。專業團隊能如同影子般融入您的日常生活與商務環境，在維持最高維安等級的同時，確保您的私人空間與社交活動不受干擾。</p>
+        </div></div>
+        <div class="pcard"><div class="pin">
+          <p class="pn">02</p><h3 class="pt">先發制人的風險預判</h3>
+          <p class="pen">Proactive Intelligence</p>
+          <p class="ptag">「在危機發生前，我們已將其排除。」</p>
+          <p class="pbody">維安的核心不在於應對衝突，而在於精準的預防。透過深度的威脅評估與環境掃描，我們在所有潛在風險萌芽前即完成路徑優化與情資佈防，確保全程無虞。</p>
+        </div></div>
+        <div class="pcard"><div class="pin">
+          <p class="pn">03</p><h3 class="pt">特種作戰級精銳團隊</h3>
+          <p class="pen">Elite-Tier Expertise</p>
+          <p class="ptag">「唯有頂尖，方能守護卓越。」</p>
+          <p class="pbody">我們的成員皆選拔自特種部隊或執法機關精銳。除了具備頂尖的近身格鬥與戰術技能，更擁有高端商務禮儀與多語溝通能力，能完美適應各種國際社交場合。</p>
+        </div></div>
+        <div class="pcard"><div class="pin">
+          <p class="pn">04</p><h3 class="pt">堅不可摧的忠誠防線</h3>
+          <p class="pen">Uncompromising Loyalty</p>
+          <p class="ptag">「您的安全，是我們唯一的使命。」</p>
+          <p class="pbody">我們建立在絕對的信任與忠誠之上。無論面對何種極端情境，我們的團隊始終以您的生命安全與名譽為最高指導原則，提供 24/7 全天候、跨國界的堅實後盾。</p>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="container">
+      <p class="sec-eye">— OUR SERVICES</p>
+      <h2 class="sec-h">服務快覽</h2>
+      <p class="sec-sub">針對不同需求場景，提供量身打造的全方位安全解決方案。</p>
+      <div class="svgrid">
+        <div class="svcard"><div class="svthumb"><div class="svthumb-in"></div></div><div class="svbody"><p class="svn">01</p><h3 class="svt">私人保鏢</h3><p class="svd">全日貼身隨扈，提供最高等級的人身安全保護。</p><span class="svl">了解更多</span></div></div>
+        <div class="svcard"><div class="svthumb"><div class="svthumb-in"></div></div><div class="svbody"><p class="svn">02</p><h3 class="svt">商務安全</h3><p class="svd">為企業高層、董監事提供商務出行全程護衛。</p><span class="svl">了解更多</span></div></div>
+        <div class="svcard"><div class="svthumb"><div class="svthumb-in"></div></div><div class="svbody"><p class="svn">03</p><h3 class="svt">活動維安</h3><p class="svd">商演、發表會、私人派對等場合的專業維安部署。</p><span class="svl">了解更多</span></div></div>
+        <div class="svcard"><div class="svthumb"><div class="svthumb-in"></div></div><div class="svbody"><p class="svn">04</p><h3 class="svt">國際安全</h3><p class="svd">海外隨扈、機場接送，跨國任務無縫銜接。</p><span class="svl">了解更多</span></div></div>
+        <div class="svcard"><div class="svthumb"><div class="svthumb-in"></div></div><div class="svbody"><p class="svn">05</p><h3 class="svt">法院出庭</h3><p class="svd">訴訟、調解、證人保護等法律場合全程護送。</p><span class="svl">了解更多</span></div></div>
+        <div class="svcard"><div class="svthumb"><div class="svthumb-in"></div></div><div class="svbody"><p class="svn">06</p><h3 class="svt">長／短期派遣</h3><p class="svd">彈性時段配置，鐘點至長期駐點皆可客製安排。</p><span class="svl">了解更多</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec alt">
+    <div class="container">
+      <p class="sec-eye">— BY THE NUMBERS</p>
+      <h2 class="sec-h">數字說明一切</h2>
+      <div class="stats">
+        <div class="svis">
+          <div class="svis-line"></div>
+          <p class="svis-txt">超過十年深耕，<br>每一個數字背後，<br>都是一份被信任的承諾。</p>
+        </div>
+        <div class="scards">
+          <div class="sc"><div class="snum">500<span>+</span></div><p class="slbl">執勤案件</p></div>
+          <div class="sc"><div class="snum">20<span>+</span></div><p class="slbl">服務國家數</p></div>
+          <div class="sc"><div class="snum">100<span>%</span></div><p class="slbl">顧客滿意度</p></div>
+          <div class="sc"><div class="snum">24<span>/7</span></div><p class="slbl">聯絡中心營運</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="container">
+      <p class="sec-eye">— CLIENT TESTIMONIALS</p>
+      <h2 class="sec-h">客戶評價</h2>
+      <p class="sec-sub">真實的信任，來自每一次共同經歷的任務。</p>
+      <div class="rwnav">
+        <button class="rarr">&#8592;</button>
+        <button class="rarr">&#8594;</button>
+      </div>
+      <div class="rgrid">
+        <div class="rcard"><p class="rstar">★★★★★</p><p class="rtxt">「在為期兩週的全球商務行程中，團隊展現了令人驚嘆的專業。他們如同影子般存在，完全不影響我的會議節奏，卻能在每一個轉角處提供絕對的安全感。這是我合作過最懂得『隱形』的專業團隊。」</p><div class="rdiv"></div><p class="rauth">某跨國科技集團</p><p class="rrole">執行長</p></div>
+        <div class="rcard"><p class="rstar">★★★★★</p><p class="rtxt">「真正的安全並非處理衝突，而是預見危機。在一次突發的社交場合中，他們的預判能力讓我的家人在媒體圍堵前便已安全撤離。那種冷靜與精準，是金錢難以買到的信任。」</p><div class="rdiv"></div><p class="rauth">知名國際慈善家</p><p class="rrole">私人委託客戶</p></div>
+        <div class="rcard"><p class="rstar">★★★★★</p><p class="rtxt">「作為長期合作夥伴，我對他們的忠誠度與細節要求感到無比放心。無論是在繁忙的倫敦街頭，還是私人莊園的夜間維安，他們始終維持著無懈可擊的高標。他們守護的不只是安全，更是我們家族的名譽。」</p><div class="rdiv"></div><p class="rauth">歐洲私人家族辦公室</p><p class="rrole">代表</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec alt">
+    <div class="container">
+      <p class="sec-eye">— CONTACT US</p>
+      <h2 class="sec-h">聯絡我們</h2>
+      <p class="sec-sub">所有諮詢均受嚴格保密協議保護，請放心說明您的需求。</p>
+      <div class="ctwrap">
+        <div>
+          <div class="fg"><label class="fl">姓名</label><input class="fi" type="text" placeholder="您的姓名"></div>
+          <div class="fg"><label class="fl">電子郵件</label><input class="fi" type="email" placeholder="your@email.com"></div>
+          <div class="fg"><label class="fl">聯絡電話</label><input class="fi" type="tel" placeholder="09XX-XXX-XXX"></div>
+          <div class="fg"><label class="fl">諮詢項目</label>
+            <select class="fi"><option value="">請選擇諮詢項目</option><option>私人保鏢</option><option>商務安全</option><option>活動維安</option><option>國際安全</option><option>法院出庭</option><option>長／短期派遣</option><option>其他</option></select>
+          </div>
+          <button class="fbtn">送出諮詢</button>
+        </div>
+        <div>
+          <p class="cinfo-lbl">— 聯絡資訊</p>
+          <div class="citem"><p class="citem-l">聯絡電話</p><p class="citem-v">09XX-XXX-XXX</p></div>
+          <div class="citem"><p class="citem-l">電子郵件</p><p class="citem-v"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f8999a9bb89f95999194d69b9795">[email&#160;protected]</a></p></div>
+          <div class="citem"><p class="citem-l">Line 官方帳號</p><p class="citem-v">@XDGRFT</p></div>
+          <div class="citem"><p class="citem-l">服務時間</p><p class="citem-v">24 / 7 全天候</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span class="fl-logo">APEX GUARDIAN</span>
+    <span class="fl-copy">© 2025 頂峰安全顧問有限公司　All Rights Reserved</span>
+  </footer>
+
+  <button class="fab" title="立即致電">
+    <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+  </button>
+</div>
+
+<!-- ══════════ PAGE B ══════════ -->
+<div id="pb" class="page vb">
+
+  <nav class="nav">
+    <div class="logo">頂峰安全顧問有限公司<small>APEX GUARDIAN ADVISORY LTD.</small></div>
+    <div class="nav-r">
+      <ul class="nav-links">
+        <li><a href="#">關於我們</a></li>
+        <li><a href="#">服務項目</a></li>
+        <li><a href="#">成功案例</a></li>
+        <li><a href="#">如何委託</a></li>
+        <li><a href="#">聯絡我們</a></li>
+      </ul>
+      <div class="lang">
+        <button class="lp on">中</button>
+        <button class="lp">EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <img src="img/hero.png" alt="Apex Guardian">
+    <div class="hero-ov"></div>
+    <div class="hero-body">
+      <p class="h-eye">APEX GUARDIAN ADVISORY</p>
+      <h1 class="h-title">為卓越少數，<br>提供頂尖守護。</h1>
+      <p class="h-text">專業、忠誠、無懈可擊。我們致力於為頂尖人士提供超越期待的安全諮詢與私人保鏢服務。我們深信，真正的安全是讓您能心無旁鶩地專注於成就，而危險則交由我們在靜謐中預判並化解。</p>
+      <div class="h-btns">
+        <button class="btn-p">了解服務方案</button>
+        <button class="btn-o">立即諮詢</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec alt">
+    <div class="container">
+      <p class="sec-eye">— CORE COMMITMENT</p>
+      <h2 class="sec-h">核心承諾</h2>
+      <p class="sec-sub">四項不可妥協的專業準則，構成我們為您服務的根基。</p>
+      <div class="pgrid">
+        <div class="pcard"><div class="pin">
+          <p class="pn">01</p><h3 class="pt">隱於無形的絕對離散</h3>
+          <p class="pen">Absolute Discretion</p>
+          <p class="ptag">「影子般的守護，不干擾您的生活節奏。」</p>
+          <p class="pbody">我們深諳高資產人士對隱私的需求。專業團隊能如同影子般融入您的日常生活與商務環境，在維持最高維安等級的同時，確保您的私人空間與社交活動不受干擾。</p>
+        </div></div>
+        <div class="pcard"><div class="pin">
+          <p class="pn">02</p><h3 class="pt">先發制人的風險預判</h3>
+          <p class="pen">Proactive Intelligence</p>
+          <p class="ptag">「在危機發生前，我們已將其排除。」</p>
+          <p class="pbody">維安的核心不在於應對衝突，而在於精準的預防。透過深度的威脅評估與環境掃描，我們在所有潛在風險萌芽前即完成路徑優化與情資佈防，確保全程無虞。</p>
+        </div></div>
+        <div class="pcard"><div class="pin">
+          <p class="pn">03</p><h3 class="pt">特種作戰級精銳團隊</h3>
+          <p class="pen">Elite-Tier Expertise</p>
+          <p class="ptag">「唯有頂尖，方能守護卓越。」</p>
+          <p class="pbody">我們的成員皆選拔自特種部隊或執法機關精銳。除了具備頂尖的近身格鬥與戰術技能，更擁有高端商務禮儀與多語溝通能力，能完美適應各種國際社交場合。</p>
+        </div></div>
+        <div class="pcard"><div class="pin">
+          <p class="pn">04</p><h3 class="pt">堅不可摧的忠誠防線</h3>
+          <p class="pen">Uncompromising Loyalty</p>
+          <p class="ptag">「您的安全，是我們唯一的使命。」</p>
+          <p class="pbody">我們建立在絕對的信任與忠誠之上。無論面對何種極端情境，我們的團隊始終以您的生命安全與名譽為最高指導原則，提供 24/7 全天候、跨國界的堅實後盾。</p>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="container">
+      <p class="sec-eye">— OUR SERVICES</p>
+      <h2 class="sec-h">服務快覽</h2>
+      <p class="sec-sub">針對不同需求場景，提供量身打造的全方位安全解決方案。</p>
+      <div class="svgrid">
+        <div class="svcard"><div class="svthumb"><div class="svthumb-in"></div></div><div class="svbody"><p class="svn">01</p><h3 class="svt">私人保鏢</h3><p class="svd">全日貼身隨扈，提供最高等級的人身安全保護。</p><span class="svl">了解更多</span></div></div>
+        <div class="svcard"><div class="svthumb"><div class="svthumb-in"></div></div><div class="svbody"><p class="svn">02</p><h3 class="svt">商務安全</h3><p class="svd">為企業高層、董監事提供商務出行全程護衛。</p><span class="svl">了解更多</span></div></div>
+        <div class="svcard"><div class="svthumb"><div class="svthumb-in"></div></div><div class="svbody"><p class="svn">03</p><h3 class="svt">活動維安</h3><p class="svd">商演、發表會、私人派對等場合的專業維安部署。</p><span class="svl">了解更多</span></div></div>
+        <div class="svcard"><div class="svthumb"><div class="svthumb-in"></div></div><div class="svbody"><p class="svn">04</p><h3 class="svt">國際安全</h3><p class="svd">海外隨扈、機場接送，跨國任務無縫銜接。</p><span class="svl">了解更多</span></div></div>
+        <div class="svcard"><div class="svthumb"><div class="svthumb-in"></div></div><div class="svbody"><p class="svn">05</p><h3 class="svt">法院出庭</h3><p class="svd">訴訟、調解、證人保護等法律場合全程護送。</p><span class="svl">了解更多</span></div></div>
+        <div class="svcard"><div class="svthumb"><div class="svthumb-in"></div></div><div class="svbody"><p class="svn">06</p><h3 class="svt">長／短期派遣</h3><p class="svd">彈性時段配置，鐘點至長期駐點皆可客製安排。</p><span class="svl">了解更多</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec alt">
+    <div class="container">
+      <p class="sec-eye">— BY THE NUMBERS</p>
+      <h2 class="sec-h">數字說明一切</h2>
+      <div class="stats">
+        <div class="svis">
+          <div class="svis-line"></div>
+          <p class="svis-txt">超過十年深耕，<br>每一個數字背後，<br>都是一份被信任的承諾。</p>
+        </div>
+        <div class="scards">
+          <div class="sc"><div class="snum">500<span>+</span></div><p class="slbl">執勤案件</p></div>
+          <div class="sc"><div class="snum">20<span>+</span></div><p class="slbl">服務國家數</p></div>
+          <div class="sc"><div class="snum">100<span>%</span></div><p class="slbl">顧客滿意度</p></div>
+          <div class="sc"><div class="snum">24<span>/7</span></div><p class="slbl">聯絡中心營運</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="container">
+      <p class="sec-eye">— CLIENT TESTIMONIALS</p>
+      <h2 class="sec-h">客戶評價</h2>
+      <p class="sec-sub">真實的信任，來自每一次共同經歷的任務。</p>
+      <div class="rwnav">
+        <button class="rarr">&#8592;</button>
+        <button class="rarr">&#8594;</button>
+      </div>
+      <div class="rgrid">
+        <div class="rcard"><p class="rstar">★★★★★</p><p class="rtxt">「在為期兩週的全球商務行程中，團隊展現了令人驚嘆的專業。他們如同影子般存在，完全不影響我的會議節奏，卻能在每一個轉角處提供絕對的安全感。這是我合作過最懂得『隱形』的專業團隊。」</p><div class="rdiv"></div><p class="rauth">某跨國科技集團</p><p class="rrole">執行長</p></div>
+        <div class="rcard"><p class="rstar">★★★★★</p><p class="rtxt">「真正的安全並非處理衝突，而是預見危機。在一次突發的社交場合中，他們的預判能力讓我的家人在媒體圍堵前便已安全撤離。那種冷靜與精準，是金錢難以買到的信任。」</p><div class="rdiv"></div><p class="rauth">知名國際慈善家</p><p class="rrole">私人委託客戶</p></div>
+        <div class="rcard"><p class="rstar">★★★★★</p><p class="rtxt">「作為長期合作夥伴，我對他們的忠誠度與細節要求感到無比放心。無論是在繁忙的倫敦街頭，還是私人莊園的夜間維安，他們始終維持著無懈可擊的高標。他們守護的不只是安全，更是我們家族的名譽。」</p><div class="rdiv"></div><p class="rauth">歐洲私人家族辦公室</p><p class="rrole">代表</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec alt">
+    <div class="container">
+      <p class="sec-eye">— CONTACT US</p>
+      <h2 class="sec-h">聯絡我們</h2>
+      <p class="sec-sub">所有諮詢均受嚴格保密協議保護，請放心說明您的需求。</p>
+      <div class="ctwrap">
+        <div>
+          <div class="fg"><label class="fl">姓名</label><input class="fi" type="text" placeholder="您的姓名"></div>
+          <div class="fg"><label class="fl">電子郵件</label><input class="fi" type="email" placeholder="your@email.com"></div>
+          <div class="fg"><label class="fl">聯絡電話</label><input class="fi" type="tel" placeholder="09XX-XXX-XXX"></div>
+          <div class="fg"><label class="fl">諮詢項目</label>
+            <select class="fi"><option value="">請選擇諮詢項目</option><option>私人保鏢</option><option>商務安全</option><option>活動維安</option><option>國際安全</option><option>法院出庭</option><option>長／短期派遣</option><option>其他</option></select>
+          </div>
+          <button class="fbtn">送出諮詢</button>
+        </div>
+        <div>
+          <p class="cinfo-lbl">— 聯絡資訊</p>
+          <div class="citem"><p class="citem-l">聯絡電話</p><p class="citem-v">09XX-XXX-XXX</p></div>
+          <div class="citem"><p class="citem-l">電子郵件</p><p class="citem-v"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f6979495b6919b979f9ad895999b">[email&#160;protected]</a></p></div>
+          <div class="citem"><p class="citem-l">Line 官方帳號</p><p class="citem-v">@XDGRFT</p></div>
+          <div class="citem"><p class="citem-l">服務時間</p><p class="citem-v">24 / 7 全天候</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span class="fl-logo">APEX GUARDIAN</span>
+    <span class="fl-copy">© 2025 頂峰安全顧問有限公司　All Rights Reserved</span>
+  </footer>
+
+  <button class="fab" title="立即致電">
+    <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+  </button>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.v-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var v = btn.getAttribute('data-v');
+      document.querySelectorAll('.page').forEach(function (p) { p.classList.remove('active'); });
+      document.querySelectorAll('.v-btn').forEach(function (b) { b.classList.remove('active'); });
+      document.getElementById('p' + v).classList.add('active');
+      btn.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+});
+</script>
+</body>
+</html>
